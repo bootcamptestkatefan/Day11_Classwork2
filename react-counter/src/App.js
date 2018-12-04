@@ -7,8 +7,9 @@ import CounterGroup from './Components/CounterGroup.js'
 class App extends Component {
   render() {
     return (
-
+      <div>
       <CounterGroup lengthOfArray = {5}/>
+      </div>
     );
   }
 }
