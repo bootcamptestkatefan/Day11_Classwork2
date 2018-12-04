@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Counter from './Counter'
+import { connect } from "react-redux";
 
-export default class CounterGroup extends Component {
+class CounterGroup extends Component {
   state ={
     counterSum: 0,
     sum: 0,
@@ -10,12 +11,14 @@ export default class CounterGroup extends Component {
         id:new Date().getTime() + Math.random(), //want it become unique
         number:0
       }; 
-    }),
-    newArray: new Array(parseInt(this.props.lengthOfArray)).fill(0)
-    
+    }),   
   }
   updateSum = (delta) => {
-    this.setState ({sum: this.state.sum + delta})
+    this.props.dispatch({
+      type: "SUM",
+      payload: delta
+    })
+    // this.setState ({sum: this.state.sum + delta})
   }
   addOneCounter = () => {
     this.setState({
@@ -27,9 +30,12 @@ export default class CounterGroup extends Component {
       }),
       counterSum: 0
     })
-    return this.state.newArray.map(()=> <Counter/>)
   }
   increaseOne = (id) => {
+    this.props.dispatch({
+      type: "SUM",
+      payload: 1
+    })
     this.setState({
     counters: this.state.counters.map(counterItem => {
     if (counterItem.id===id){
@@ -39,11 +45,14 @@ export default class CounterGroup extends Component {
       return counterItem;
     }
     }),
-    sum: this.state.sum + 1
   })
-  console.log(this.state.counters)
+  // console.log(this.state.counters)
   }
   decreaseOne = (id) => {
+    this.props.dispatch({
+      type: "SUM",
+      payload: -1
+    })
     this.setState({
     counters: this.state.counters.map(counterItem => {
     if (counterItem.id===id){
@@ -53,9 +62,9 @@ export default class CounterGroup extends Component {
       return counterItem;
       }
     }),
-    sum: this.state.sum - 1
   })
   }
+  
   render() {
     return (
       <div> 
@@ -69,7 +78,7 @@ export default class CounterGroup extends Component {
           number={countersElement.number}
           />
           )}
-          sum: {this.state.sum}
+          sum: {this.props.sum}
         </div>
         <div>
         <input type="text" ref="name"></input>
@@ -79,3 +88,9 @@ export default class CounterGroup extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  sum: state.sum
+}); 
+connect(mapStateToProps)(CounterGroup)
+
+export default connect(mapStateToProps)(CounterGroup);
