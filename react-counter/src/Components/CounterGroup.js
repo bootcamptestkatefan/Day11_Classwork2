@@ -37,8 +37,9 @@ export default class CounterGroup extends Component {
     }
     else {
       return counterItem;
-      }
-    })
+    }
+    }),
+    sum: this.state.sum + 1
   })
   console.log(this.state.counters)
   }
@@ -51,7 +52,8 @@ export default class CounterGroup extends Component {
     else {
       return counterItem;
       }
-    })
+    }),
+    sum: this.state.sum - 1
   })
   }
   render() {
