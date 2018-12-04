@@ -5,7 +5,8 @@ export default class CounterGroup extends Component {
   state ={
     newArray: new Array(this.props.lengthOfArray).fill(0),
     sum: 0,
-    counterSum: 0
+    counterSum: 0,
+    number: 0
   }
   updateSum = (delta) => {
     this.setState ({sum: this.state.sum + delta})
@@ -17,6 +18,16 @@ export default class CounterGroup extends Component {
     })
     return this.state.newArray.map(()=> <Counter/>)
   }
+  increaseOne = () => {
+    this.setState({
+      number: this.state.number +1, sum: this.state.sum +1
+    })
+  }
+  decreaseOne = () => {
+    this.setState({
+      number: this.state.number -1, sum: this.state.sum -1
+    })
+  }
   render() {
     return (
       <div> 
@@ -24,6 +35,9 @@ export default class CounterGroup extends Component {
           {this.state.newArray.map(id => <Counter 
           onUpdate={this.updateSum}
           counterNum={this.state.count}
+          onIncrease={this.increaseOne}
+          onDecrease={this.decreaseOne}
+          number={this.state.number}
           />
           )}
           sum: {this.state.sum}
