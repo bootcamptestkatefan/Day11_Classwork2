@@ -11,9 +11,9 @@ export default class Counter extends Component {
   render() {
     return (
       <div>
-        <button onClick = {this.props.onIncrease}>+</button>
+        <button onClick = {()=>this.props.onIncrease(this.props.id)}>+</button>
         <span>{this.props.number}</span>
-        <button onClick = {this.props.onDecrease}>-</button>
+        <button onClick = {()=>this.props.onDecrease(this.props.id)}>-</button>
       </div>
     )
   }
